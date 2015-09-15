@@ -191,7 +191,7 @@ var library = (function() {
 				var date = new Date()
 				var currentMonth = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 				return currentMonth[ date.getMonth() ]
-			}
+			},
 		}
 	})(),
 	Year: (function(){
