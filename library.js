@@ -2,11 +2,14 @@ var library = (function() {
   return {
 	TimeStamp: (function(){
    	  return {
-		UnixTimestamp: function(){},
+		UnixTimestamp: function(){
+			var sec = new Date().getTime() / 1000;
+			return String(sec).substr(0,10);
+			
+		},
 		UnixMillisecond: function(){
-			var date = new Date()
-			var milliSec = date.getMilliseconds();
-			return (milliSec);
+			var ms = new Date().getTime();
+			return String(ms);
 		}
 	  }
 	})(),
@@ -14,8 +17,15 @@ var library = (function() {
 	  return {
 		Time: (function() {
 		  return {
-	  	    WithSeconds: function(){},
-	   	    WithOutSeconds: function() {}
+	  	    WithSeconds: function(){
+				var time = new Date()
+				return(time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds());
+				  
+			  },
+	   	    WithOutSeconds: function() {
+				   var time = new Date()
+				return(time.getHours() + ":" + time.getMinutes() + ":");
+			   }
 		  }
 		})(),
 		MDY: (function(){
@@ -59,10 +69,15 @@ var library = (function() {
 	Hour: (function(){
 		return {
 			TwentyFourHour: function() {
-				
+				var date = new Date()
+				var hours = date.getHours();
+				return String(hours);
 			},
 			TwelveHour: function() {
-				
+				var date = new Date()
+				var hours = date.getHours();
+				if (hours > 12) {hours -=12;}
+				return String(hours)
 			},
 			AMPM: (function() {
 				return {
