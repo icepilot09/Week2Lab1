@@ -19,19 +19,27 @@ var library = (function() {
 		  return {
 	  	    WithSeconds: function(){
 				var time = new Date()
-				return(time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds());
+				return time.toLocaleTimeString();
 				  
 			  },
 	   	    WithOutSeconds: function() {
-				   var time = new Date()
-				return(time.getHours() + ":" + time.getMinutes() + ":");
+				 var time = new Date()
+				 return time.toLocaleTimeString(navigator.language, {hour: '2-digit', minute: '2-digit'});
+				
 			   }
 		  }
 		})(),
 		MDY: (function(){
 	  	  return {
-		    Numeral: function(){},
-			Name: function(){}
+		    Numeral: function(){
+				var date = new Date();
+				return((date.getMonth()+1) + "/" + date.getDate() + "/" + date.getFullYear());
+			},
+			Name: function(){
+				var date = new Date()
+				var monName = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+				return (monName[date.getMonth()] + " " + date.getDate() + "," + " " +date.getFullYear());
+			}
 		  }
 		  })(),
 		}
@@ -71,6 +79,7 @@ var library = (function() {
 			TwentyFourHour: function() {
 				var date = new Date()
 				var hours = date.getHours();
+				//if (hours < 10) {return '0'+ hours}
 				return String(hours);
 			},
 			TwelveHour: function() {
@@ -174,16 +183,14 @@ var library = (function() {
 			return String(monthNumDbl)
 			},
 			AbrOfCurrentMonth: function(){
-				var date = new Date();
-				var abrMonth = date.getMonth() + 1;
-				if (abrMonth < 10) {abrMonth = 'Sep';}
-			return String(abrMonth)
+				var date = new Date()
+				var currentMonth = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+				return currentMonth[ date.getMonth() ]
 			},
 			CurrentMonth: function(){
-				var date = new Date();
-				var currentMonth = date.getMonth() + 1;
-				if (currentMonth < 10) {currentMonth = 'September';}
-			return String(currentMonth);
+				var date = new Date()
+				var currentMonth = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+				return currentMonth[ date.getMonth() ]
 			}
 		}
 	})(),
@@ -230,6 +237,10 @@ var library = (function() {
 			}
 		}
 	})(),
-	Defaults: function(){}
+	Defaults: function(){
+		var hours = new Date().getHours();
+		if (hours < 10) {return '0'+hours}
+		return library.Year.YearFull() + "-" + library.Month.MonthNumberDblDigit() + "-" + library.Month.DateOfMonth.DateDblDigit() + "T" + library.Hour.TwentyFourHour() + ":" + library.Minute.DblDigit() + ":" + library.Second.DblDigit();
+	}
   }
 })();
